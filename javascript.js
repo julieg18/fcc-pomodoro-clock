@@ -1,5 +1,7 @@
 let breakLength = 5;
 let sessionLength = 25;
+let sessionMinutes = sessionLength;
+let breakMinutes = breakLength;
 let minutes = 25;
 let seconds = 0;
 let timerDisplay = "00:00"
@@ -17,33 +19,37 @@ $(document).ready(function () {
       breakLength--;
       $("#break-length").text(breakLength);
     }
+    breakMinutes = breakLength;
   });
   $("#break-increment").click(function() { 
     if (breakLength < 60) {
       breakLength++;
       $("#break-length").text(breakLength);
     }
+    breakMinutes = breakLength;
+    console.log(breakMinutes);
   });
   $("#session-decrement").click(function() { 
     if (sessionLength > 1) {
       sessionLength--;
       $("#session-length").text(sessionLength);
     }
-    minutes = sessionLength;
+    sessionMinutes = sessionLength;
   });
   $("#session-increment").click(function() {
     if (sessionLength < 60) {
       sessionLength++;
       $("#session-length").text(sessionLength);
     }
-    minutes = sessionLength;
+    sessionMinutes = sessionLength;
   });
   $("#time-left").html(timerDisplay);
 
-  //start, pause, and reset buttons
+  //start/pause and reset buttons
   $("#start_stop").click(function() { 
     if (clicks === 0) {
       clicks++;
+      minutes = sessionMinutes;
       startCountdown();
     } else if (clicks === 1) {
       clearInterval(countdown);
@@ -54,11 +60,13 @@ $(document).ready(function () {
     clearInterval(countdown);
     breakLength = 5;
     sessionLength = 25;
+    breakMinutes = breakLength;
+    sessionMinutes = sessionLength;
     clicks = 0;
     timerMode = "session";
-    minutes = sessionLength;
+    minutes = sessionMinutes;
     seconds = 0;
-    timerDisplay = "00:00"
+    timerDisplay = "00:00";
     $("#break-length").text(breakLength)
     $("#session-length").text(sessionLength);
     $("#time-left").text(timerDisplay);
@@ -77,12 +85,13 @@ $(document).ready(function () {
         clearInterval(countdown);
         audio.play();
         if (timerMode === "session") {
-          minutes = sessionLength;
+          minutes = breakMinutes;
           $("#timer-label").text("Break");
           timerMode = "break";
           createAndDisplayTimer();
         } else {
-          minutes = breakLength;
+          console.log(breakMinutes);
+          minutes = sessionMinutes;
           $("#timer-label").text("Session");
           timerMode = "session";
           createAndDisplayTimer();
