@@ -2,9 +2,10 @@ let breakLength = 5;
 let sessionLength = 25;
 let minutes = 25;
 let seconds = 0;
-let timerDisplay;
+let timerDisplay = "00:00"
 let clicks = 0;
-let time = "session";
+let timerMode = "session";
+let audio = document.getElementById("beep");
 
 $(document).ready(function () {
   $("#break-length").text(breakLength);
@@ -28,27 +29,24 @@ $(document).ready(function () {
       sessionLength--;
       $("#session-length").text(sessionLength);
     }
-    mins = sessionLength;
+    minutes = sessionLength;
   });
   $("#session-increment").click(function() {
     if (sessionLength < 60) {
       sessionLength++;
       $("#session-length").text(sessionLength);
     }
-    mins = sessionLength;
+    minutes = sessionLength;
   });
-  $("#time-left").html("00:00");
+  $("#time-left").html(timerDisplay);
 
   //start, pause, and reset buttons
   $("#start_stop").click(function() { 
     if (clicks === 0) {
       clicks++;
-      startCountdown(false);
+      startCountdown();
     } else if (clicks === 1) {
       clearInterval(countdown);
-      clicks++;
-    } else {
-      startCountdown(true);
       clicks--;
     }
   });
@@ -57,50 +55,56 @@ $(document).ready(function () {
     breakLength = 5;
     sessionLength = 25;
     clicks = 0;
-    time = "session";
+    timerMode = "session";
     minutes = sessionLength;
     seconds = 0;
+    timerDisplay = "00:00"
     $("#break-length").text(breakLength)
     $("#session-length").text(sessionLength);
-    $("#time-left").text("00:00");
-    $("#timer-label").text("Session");
-  });
-  //timer function
-  function startCountdown(hasTimerStarted) {
-    if (time === "session" && hasTimerStarted === false) {
-      minutes = sessionLength;
-      $("#timer-label").text("Session");
-    } else if (hasTimerStarted === false) {
-      minutes = breakLength;
-      $("#timer-label").text("Break");
-    };
-    minutes = minutes.toString().length === 1 ? "0" + minutes : minutes;
-    seconds = seconds.toString().length === 1 ? "0" + seconds : seconds;
-    timerDisplay = (minutes + ":" + seconds);
     $("#time-left").text(timerDisplay);
-
+    $("#timer-label").text("Session");
+    if (audio.play()) {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  });
+  
+  //timer function
+  function startCountdown() {
+    createAndDisplayTimer();
     countdown = setInterval(function() {
-      minutes = parseInt(minutes);
-      seconds = parseInt(seconds);
-      if (seconds === 0 && minutes > 0) {
-        minutes--;
-        seconds = seconds + 60;
-      }
-      seconds--;
-      minutes = minutes.toString().length === 1 ? "0" + minutes : minutes;
-      seconds = seconds.toString().length === 1 ? "0" + seconds : seconds;
-      timerDisplay = (minutes + ":" + seconds);
-      $("#time-left").html(timerDisplay);
       if (seconds === "00" && minutes === "00") {
         clearInterval(countdown);
-        document.getElementById("beep").play();
-        if (time === "session") {
-          time = "break";
+        audio.play();
+        if (timerMode === "session") {
+          minutes = sessionLength;
+          $("#timer-label").text("Break");
+          timerMode = "break";
+          createAndDisplayTimer();
         } else {
-          time = "session";
+          minutes = breakLength;
+          $("#timer-label").text("Session");
+          timerMode = "session";
+          createAndDisplayTimer();
         }
         startCountdown(false);
+      } else {
+        minutes = parseInt(minutes);
+        seconds = parseInt(seconds);
+        if (seconds === 0 && minutes > 0) {
+          minutes--;
+          seconds = seconds + 60;
+        }
+        seconds--;
+        createAndDisplayTimer();
       }  
-    }, 1000)
+      }, 1000)
   };
 });
+
+function createAndDisplayTimer() {
+  minutes = minutes.toString().length === 1 ? "0" + minutes : minutes;
+  seconds = seconds.toString().length === 1 ? "0" + seconds : seconds;
+  timerDisplay = (minutes + ":" + seconds);
+  $("#time-left").text(timerDisplay);
+}
