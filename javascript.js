@@ -10,9 +10,15 @@ let timerMode = "session";
 let audio = document.getElementById("beep");
 
 $(document).ready(function () {
+  $("#light-mode").click(function() { 
+    $("body").css("background-color", "white");
+  });
+  $("#dark-mode").click(function() { 
+    $("body").css("background-color", "black");
+  });
   $("#break-length").text(breakLength);
   $("#session-length").text(sessionLength);
-
+  
   //increment and decrement buttons
   $("#break-decrement").click(function() { 
     if (breakLength > 1) {
@@ -71,6 +77,7 @@ $(document).ready(function () {
     $("#session-length").text(sessionLength);
     $("#time-left").text(timerDisplay);
     $("#timer-label").text("Session");
+    $("#pomodoro-clock").css("border-color", "#18bb92");
     if (audio.play()) {
       audio.pause();
       audio.currentTime = 0;
@@ -87,12 +94,14 @@ $(document).ready(function () {
         if (timerMode === "session") {
           minutes = breakMinutes;
           $("#timer-label").text("Break");
+          $("#pomodoro-clock").css("border-color", "#ebc253");
           timerMode = "break";
           createAndDisplayTimer();
         } else {
           console.log(breakMinutes);
           minutes = sessionMinutes;
           $("#timer-label").text("Session");
+          $("#pomodoro-clock").css("border-color", "#18bb92");
           timerMode = "session";
           createAndDisplayTimer();
         }
