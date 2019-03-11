@@ -1,0 +1,36 @@
+body {
+  background-color: black;
+  text-align: center;
+  display: grid;
+  grid-template: repeat(4, 1fr)/repeat(4, 1fr);
+  font-family: 'Anton', sans-serif;
+  justify-items: center;
+  justify-content: center; }
+
+h1, p, button {
+  background: -webkit-linear-gradient(#18bb92, #ebc253);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent; }
+
+button {
+  font-family: 'Anton', sans-serif; }
+
+#heading-and-mode {
+  grid-area: 1 / 2 / span 1 / span 2; }
+
+#change-break-length {
+  grid-area: 2 / 1 / span 1 / span 1;
+  font-size: large; }
+
+#change-session-length {
+  font-size: large;
+  grid-area: 2 / 4 / span 1 / span 1; }
+
+#pomodoro-clock {
+  font-size: xx-large;
+  grid-area: 3 / 2 / span 2 / span 2;
+  border: 3px solid #18bb92;
+  border-radius: 50%;
+  height: 300px;
+  width: 300px; }

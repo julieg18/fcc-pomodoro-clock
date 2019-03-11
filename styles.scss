@@ -1,0 +1,53 @@
+$color-one: #18bb92;
+$color-two: #ebc253;
+
+@mixin color-blend {
+  background: -webkit-linear-gradient( $color-one, $color-two);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body {
+  background-color: black;
+  text-align: center;
+  display: grid;
+  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+  font-family: 'Anton', sans-serif;
+  justify-items: center;
+  justify-content: center;
+}
+
+h1, p, button {
+  @include color-blend();
+}
+
+button {
+  font-family: 'Anton', sans-serif;
+}
+
+#heading-and-mode {
+  grid-area: 1 / 2 / span 1 / span 2;
+}
+
+#change-break-length {
+  grid-area: 2 / 1 / span 1 / span 1;
+  font-size: large;
+}
+
+#change-session-length {
+  font-size: large;
+  grid-area: 2 / 4 / span 1 / span 1;
+}
+
+#pomodoro-clock {
+  font-size: xx-large;
+  grid-area: 3 / 2 / span 2 / span 2;
+  border: 3px solid $color-one;
+  border-radius: 50%;
+  height: 300px;
+  width: 300px;
+}
+
+
+
