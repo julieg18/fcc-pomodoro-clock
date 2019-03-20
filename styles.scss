@@ -18,12 +18,20 @@ body {
   justify-content: center;
 }
 
-h1, p, button {
+h1, p, button, small {
   @include color-blend();
 }
 
 button {
   font-family: 'Anton', sans-serif;
+}
+
+#mode {
+  padding-top: 10px;
+}
+
+#heading {
+  padding-bottom: 10px;
 }
 
 #heading-and-mode {
