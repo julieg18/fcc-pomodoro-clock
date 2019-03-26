@@ -24,6 +24,7 @@ h1, p, button, small {
 
 button {
   font-family: 'Anton', sans-serif;
+  font-size: large;
 }
 
 #mode {
@@ -57,5 +58,19 @@ button {
   width: 300px;
 }
 
+#time-left {
+  font-family: 'Roboto Mono', monospace;
+  font-size: larger;
+}
+
+@media only screen and (min-width: 800px) {
+  #time-left {
+      font-size: 3rem;
+  }
+  #pomodoro-clock {
+    height: 325px;
+    width: 325px;
+  }
+}
 
 

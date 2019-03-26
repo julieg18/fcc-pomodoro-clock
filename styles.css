@@ -14,7 +14,8 @@ h1, p, button, small {
   -webkit-text-fill-color: transparent; }
 
 button {
-  font-family: 'Anton', sans-serif; }
+  font-family: 'Anton', sans-serif;
+  font-size: large; }
 
 #mode {
   padding-top: 10px; }
@@ -40,3 +41,14 @@ button {
   border-radius: 50%;
   height: 300px;
   width: 300px; }
+
+#time-left {
+  font-family: 'Roboto Mono', monospace;
+  font-size: larger; }
+
+@media only screen and (min-width: 800px) {
+  #time-left {
+    font-size: 3rem; }
+  #pomodoro-clock {
+    height: 325px;
+    width: 325px; } }
