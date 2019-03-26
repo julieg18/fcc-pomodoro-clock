@@ -80,6 +80,7 @@ $(document).ready(function () {
     $("#time-left").text(timerDisplay);
     $("#timer-label").text("Session");
     $("#pomodoro-clock").css("border-color", "#18bb92");
+    $("title").text("Pomodoro Clock")
     if (audio.play()) {
       audio.pause();
       audio.currentTime = 0;
@@ -127,4 +128,5 @@ function createAndDisplayTimer() {
   seconds = seconds.toString().length === 1 ? "0" + seconds : seconds;
   timerDisplay = (minutes + ":" + seconds);
   $("#time-left").text(timerDisplay);
+  $("title").text(`Pomodoro Clock ${timerDisplay}`)
 }
