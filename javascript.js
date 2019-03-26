@@ -33,7 +33,6 @@ $(document).ready(function () {
       $("#break-length").text(breakLength);
     }
     breakMinutes = breakLength;
-    console.log(breakMinutes);
   });
   $("#session-decrement").click(function() { 
     if (sessionLength > 1) {
@@ -59,6 +58,9 @@ $(document).ready(function () {
       startCountdown();
     } else if (clicks === 1) {
       clearInterval(countdown);
+      clicks++;
+    } else {
+      startCountdown();
       clicks--;
     }
   });
